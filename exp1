@@ -1,0 +1,11 @@
+import re 
+text="I am happy What about you. I am also happy vaishali1607@gmail.com "
+pattern=r'\bhappy\b'
+mat=re.findall(pattern,text)
+print("matched word ",mat)
+pattern1=r'[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,3}'
+email=re.findall(pattern1,text)
+print(email)
+pattern3=r'\b\w+\b'
+all_match=re.findall(pattern3,text)
+print(all_match)
