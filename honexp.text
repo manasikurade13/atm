@@ -1,0 +1,280 @@
+EXP1 :- write a python program to demonstate Pattern matching in python with regex
+
+import re 
+text="I am happy What about you. I am also happy vaishali1607@gmail.com "
+pattern=r'\bhappy\b'
+mat=re.findall(pattern,text)
+print("matched word ",mat)
+pattern1=r'[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,3}'
+email=re.findall(pattern1,text)
+print(email)
+pattern3=r'\b\w+\b'
+all_match=re.findall(pattern3,text)
+print(all_match)
+---------------------------------------------------------------------------------------------------
+EXP2 :- Write a python program to demonstarte regular expression method match(),search(),findall()
+import re
+text="My Hello vaishali,How are you."
+match_reu=re.findall("Hello",text)
+print(match_reu)
+match1=re.search("Hello",text)
+print(match1.group())
+mat=re.match("Hello",text)
+if mat:
+  print("match is found at the beginnning.",mat.group())
+else :
+  print("match is not  found at the beginnning.")
+
+----------------------------------------------------------------------------------------------
+EXP3 :- write a program to to validate phone number,email address,and social security number
+
+import re
+text="phone number 1234567890. email id vaishali1607@mail.com security password 123456"
+pattern=r'[a-zA-Z0-9]+@[a-zA-Z-0-9]+\.[a-zA-Z]{2,3}'
+email=re.findall(pattern,text)
+print("email id ",email)
+pattern1=r'\d{10}'
+phone=re.findall(pattern1,text)
+print("phone number ",phone)
+pattern2=r'\d{6}'
+securitypass=re.findall(pattern2,text)
+print(securitypass)
+------------------------------------------------------------------------------------------------
+
+ExP4 :- Write a program to parse html document and find all hyperlink
+
+import requests
+from bs4 import BeautifulSoup
+
+url = 'https://www.geeksforgeeks.org/'
+reqs = requests.get(url)
+soup = BeautifulSoup(reqs.text, 'html.parser')
+
+for link in soup.find_all('a'):
+    href = link.get('href')
+    if href:
+        print(href)
+
+----------------------------------------------------------------------------------------------------
+EXP5 :- Write a python program to discover abstarct topic that occrus  in a collection of document
+
+import pandas as pd
+import string
+
+# Sample data for reviews
+data = {
+    'ProductId': [1001, 1002, 1001, 1003, 1002, 1001, 1003, 1002],
+    'UserId': ['U001', 'U002', 'U003', 'U004', 'U005', 'U006', 'U007', 'U008'],
+    'Review': [
+        "This product is amazing!",
+        "Good quality.",
+        "Not worth the price.",
+        "Excellent value for the money.",
+        "Fairly good.",
+        "The product was okay.",
+        "Outstanding!",
+        "Bad experience."
+    ]
+}
+
+# Create DataFrame
+review_data = pd.DataFrame(data)
+
+# Display the first few rows of the DataFrame
+print(review_data.head())  # Print first few rows of the DataFrame
+
+# Check unique products and users
+print(f"Unique Products: {len(review_data.groupby('ProductId'))}")
+print(f"Unique Users: {len(review_data.groupby('UserId'))}")
+
+# Text cleaning function
+def clean_text(text):
+    # Remove punctuation
+    delete_dict = {sp_character: '' for sp_character in string.punctuation}
+    delete_dict[' '] = ' '
+    table = str.maketrans(delete_dict)
+    text1 = text.translate(table)
+    
+    # Remove digits and words with less than 3 characters
+    textArr = text1.split()
+    text2 = ' '.join([w for w in textArr if not w.isdigit() and len(w) > 3])
+    
+    return text2.lower()
+
+# Apply the cleaning function to the reviews
+review_data['cleaned_text'] = review_data['Review'].apply(clean_text)
+
+# Display the cleaned text
+print(review_data[['Review', 'cleaned_text']].head())  # Show original and cleaned text
+---------------------------------------------------
+
+EXP6 :- Write aprogram to classify document in sepecifield category
+
+import re
+
+# Define categories and associated keywords
+categories = {
+    "Sports": ["football", "soccer", "basketball", "cricket", "tennis"],
+    "Technology": ["computer", "AI", "software", "hardware", "machine learning"],
+    "Politics": ["government", "election", "president", "policy", "law"],
+    "Health": ["medicine", "doctor", "hospital", "health", "treatment"]
+}
+
+# Function to classify the document based on keyword matching
+def classify_document(text):
+    text = text.lower()  
+    category_scores = {category: 0 for category in categories}
+
+  
+    for category, keywords in categories.items():
+        for keyword in keywords:
+            if re.search(r'\b' + re.escape(keyword) + r'\b', text): 
+                category_scores[category] += 1
+    
+  
+    best_category = max(category_scores, key=category_scores.get)
+    
+  
+    if category_scores[best_category] == 0:
+        return "Unclassified"
+    
+    return best_category
+
+
+document = "The election results were announced yesterday, and the new president is set to lead the government."
+document="In computer science and hardware and software are both are impotrant"
+
+# Classify the document
+category = classify_document(document)
+print(f"The document belongs to the '{category}' category.")
+--------------------------------------------------------------------------------
+EXP7 :- write a python program to demonstate basic nlp task with nltk
+
+!pip install nltk
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
+
+nltk.download('punkt')
+nltk.download('stopwords')
+
+text = "Apple is buying a startup in the U.K. for $1 billion."
+
+words = word_tokenize(text)
+print("Tokenized Words:", words)
+
+stop_words = set(stopwords.words('english'))
+filtered = [w for w in words if w.lower() not in stop_words]
+print("After Stopword Removal:", filtered)
+
+stemmer = PorterStemmer()
+stemmed = [stemmer.stem(w) for w in filtered]
+print("Stemmed Words:", stemmed)
+
+
+----------------------------------------------------------------------------
+EXP8 :-
+write a python program to identifield named entites from document corpus
+
+# Install NLTK if not already installed
+!pip install nltk
+
+# Import necessary modules from NLTK
+import nltk
+from nltk.tokenize import word_tokenize, sent_tokenize
+from nltk import pos_tag, ne_chunk
+from nltk.corpus import stopwords
+
+# Download necessary NLTK datasets
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('maxent_ne_chunker')
+nltk.download('words')
+
+# Sample document corpus (you can replace this with your own document)
+text = """
+Apple Inc. is a major American multinational technology company headquartered in Cupertino, California.
+It was founded by Steve Jobs, Steve Wozniak, and Ronald Wayne on April 1, 1976. 
+Apple designs, develops, and sells consumer electronics, computer software, and online services.
+The CEO of Apple is Tim Cook.
+"""
+
+# 1. Tokenize the document into sentences
+sentences = sent_tokenize(text)
+
+# 2. Tokenize each sentence into words and tag part-of-speech (POS)
+tokenized_sentences = [word_tokenize(sentence) for sentence in sentences]
+pos_tagged_sentences = [pos_tag(sentence) for sentence in tokenized_sentences]
+
+# 3. Named Entity Recognition (NER)
+named_entities = []
+for sentence in pos_tagged_sentences:
+    ne_tree = ne_chunk(sentence)
+    named_entities.append(ne_tree)
+
+# 4. Print the named entities found in the document
+print("Named Entities Found in the Document:")
+for tree in named_entities:
+    for subtree in tree:
+        if isinstance(subtree, tuple):
+            continue
+        print(subtree)
+
+
+
+
+
+
+
+
+--------------------------------------------------------
+EXP9:- Write a python program for spelling recommnder function that uses nltk to find words similar to the misseplling
+
+!pip install pyspellchecker
+
+from spellchecker import SpellChecker
+
+# Initialize the spellchecker
+spell = SpellChecker()
+
+misspelled_word = "Incorrct"
+corrected_word = spell.correction(misspelled_word)
+print("Misspelled Word:", misspelled_word)
+print("Corrected Word: ", corrected_word)
+
+# List of misspelled words
+print("========================================================")
+misspelled_word_list = ['Incorrct', 'Mang', 'Summay', 'Watr', 'Appl']
+for word in misspelled_word_list:
+    correct_word = spell.correction(word)
+    print("Misspelled Word:", word)
+    print("Corrected Word: ", correct_word)
+--------------------------------------------------------------------------------------------------------
+EXp10 :-
+Write a python program to ideentifield sentimental of given text 
+# pip install textblob
+from textblob import TextBlob
+
+# Get input text
+text = input("Enter a sentence for sentiment analysis: ")
+
+# Create a TextBlob object
+blob = TextBlob(text)
+
+# Get sentiment polarity
+polarity = blob.sentiment.polarity
+
+# Determine sentiment category
+if polarity > 0:
+    sentiment = "Positive 😊"
+elif polarity < 0:
+    sentiment = "Negative 😠"
+else:
+    sentiment = "Neutral 😐"
+
+# Display results
+print(f"\nText: {text}")
+print(f"Sentiment Polarity: {polarity}")
+print(f"Sentiment: {sentiment}")
