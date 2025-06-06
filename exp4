@@ -1,0 +1,11 @@
+import requests
+from bs4 import BeautifulSoup
+
+url = 'https://www.geeksforgeeks.org/'
+reqs = requests.get(url)
+soup = BeautifulSoup(reqs.text, 'html.parser')
+
+for link in soup.find_all('a'):
+    href = link.get('href')
+    if href:
+        print(href)
