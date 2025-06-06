@@ -1,3 +1,4 @@
+EXP1 :- write a python program to demonstate Pattern matching in python with regex
 import re 
 text="I am happy What about you. I am also happy vaishali1607@gmail.com "
 pattern=r'\bhappy\b'
