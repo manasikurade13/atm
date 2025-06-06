@@ -1,3 +1,5 @@
+EXP2 :- Write a python program to demonstarte regular expression method match(),search(),findall()
+s
 import re
 text="My Hello vaishali,How are you."
 match_reu=re.findall("Hello",text)
