@@ -1,0 +1,39 @@
+EXP6 :- Write aprogram to classify document in sepecifield category
+
+import re
+
+# Define categories and associated keywords
+categories = {
+    "Sports": ["football", "soccer", "basketball", "cricket", "tennis"],
+    "Technology": ["computer", "AI", "software", "hardware", "machine learning"],
+    "Politics": ["government", "election", "president", "policy", "law"],
+    "Health": ["medicine", "doctor", "hospital", "health", "treatment"]
+}
+
+# Function to classify the document based on keyword matching
+def classify_document(text):
+    text = text.lower()  
+    category_scores = {category: 0 for category in categories}
+
+  
+    for category, keywords in categories.items():
+        for keyword in keywords:
+            if re.search(r'\b' + re.escape(keyword) + r'\b', text): 
+                category_scores[category] += 1
+    
+  
+    best_category = max(category_scores, key=category_scores.get)
+    
+  
+    if category_scores[best_category] == 0:
+        return "Unclassified"
+    
+    return best_category
+
+
+document = "The election results were announced yesterday, and the new president is set to lead the government."
+document="In computer science and hardware and software are both are impotrant"
+
+# Classify the document
+category = classify_document(document)
+print(f"The document belongs to the '{category}' category.")
