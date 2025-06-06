@@ -1,0 +1,12 @@
+import re
+text="phone number 1234567890. email id vaishali1607@mail.com security password 123456"
+pattern=r'[a-zA-Z0-9]+@[a-zA-Z-0-9]+\.[a-zA-Z]{2,3}'
+email=re.findall(pattern,text)
+print("email id ",email)
+pattern1=r'\d{10}'
+phone=re.findall(pattern1,text)
+print("phone number ",phone)
+pattern2=r'\d{6}'
+securitypass=re.findall(pattern2,text)
+print(securitypass)
+------------------------------
