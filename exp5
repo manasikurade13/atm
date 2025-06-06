@@ -1,0 +1,48 @@
+import pandas as pd
+import string
+
+# Sample data for reviews
+data = {
+    'ProductId': [1001, 1002, 1001, 1003, 1002, 1001, 1003, 1002],
+    'UserId': ['U001', 'U002', 'U003', 'U004', 'U005', 'U006', 'U007', 'U008'],
+    'Review': [
+        "This product is amazing!",
+        "Good quality.",
+        "Not worth the price.",
+        "Excellent value for the money.",
+        "Fairly good.",
+        "The product was okay.",
+        "Outstanding!",
+        "Bad experience."
+    ]
+}
+
+# Create DataFrame
+review_data = pd.DataFrame(data)
+
+# Display the first few rows of the DataFrame
+print(review_data.head())  # Print first few rows of the DataFrame
+
+# Check unique products and users
+print(f"Unique Products: {len(review_data.groupby('ProductId'))}")
+print(f"Unique Users: {len(review_data.groupby('UserId'))}")
+
+# Text cleaning function
+def clean_text(text):
+    # Remove punctuation
+    delete_dict = {sp_character: '' for sp_character in string.punctuation}
+    delete_dict[' '] = ' '
+    table = str.maketrans(delete_dict)
+    text1 = text.translate(table)
+    
+    # Remove digits and words with less than 3 characters
+    textArr = text1.split()
+    text2 = ' '.join([w for w in textArr if not w.isdigit() and len(w) > 3])
+    
+    return text2.lower()
+
+# Apply the cleaning function to the reviews
+review_data['cleaned_text'] = review_data['Review'].apply(clean_text)
+
+# Display the cleaned text
+print(review_data[['Review', 'cleaned_text']].head())  # Show original and cleaned text
