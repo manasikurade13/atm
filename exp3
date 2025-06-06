@@ -1,3 +1,5 @@
+EXP3 :- write a program to to validate phone number,email address,and social security number
+
 import re
 text="phone number 1234567890. email id vaishali1607@mail.com security password 123456"
 pattern=r'[a-zA-Z0-9]+@[a-zA-Z-0-9]+\.[a-zA-Z]{2,3}'
