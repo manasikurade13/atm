@@ -1,0 +1,47 @@
+EXP8 :-
+write a python program to identifield named entites from document corpus
+
+# Install NLTK if not already installed
+!pip install nltk
+
+# Import necessary modules from NLTK
+import nltk
+from nltk.tokenize import word_tokenize, sent_tokenize
+from nltk import pos_tag, ne_chunk
+from nltk.corpus import stopwords
+
+# Download necessary NLTK datasets
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('maxent_ne_chunker')
+nltk.download('words')
+
+# Sample document corpus (you can replace this with your own document)
+text = """
+Apple Inc. is a major American multinational technology company headquartered in Cupertino, California.
+It was founded by Steve Jobs, Steve Wozniak, and Ronald Wayne on April 1, 1976. 
+Apple designs, develops, and sells consumer electronics, computer software, and online services.
+The CEO of Apple is Tim Cook.
+"""
+
+# 1. Tokenize the document into sentences
+sentences = sent_tokenize(text)
+
+# 2. Tokenize each sentence into words and tag part-of-speech (POS)
+tokenized_sentences = [word_tokenize(sentence) for sentence in sentences]
+pos_tagged_sentences = [pos_tag(sentence) for sentence in tokenized_sentences]
+
+# 3. Named Entity Recognition (NER)
+named_entities = []
+for sentence in pos_tagged_sentences:
+    ne_tree = ne_chunk(sentence)
+    named_entities.append(ne_tree)
+
+# 4. Print the named entities found in the document
+print("Named Entities Found in the Document:")
+for tree in named_entities:
+    for subtree in tree:
+        if isinstance(subtree, tuple):
+            continue
+        print(subtree)
