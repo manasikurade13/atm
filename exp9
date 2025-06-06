@@ -1,0 +1,21 @@
+EXP9:- Write a python program for spelling recommnder function that uses nltk to find words similar to the misseplling
+
+!pip install pyspellchecker
+
+from spellchecker import SpellChecker
+
+# Initialize the spellchecker
+spell = SpellChecker()
+
+misspelled_word = "Incorrct"
+corrected_word = spell.correction(misspelled_word)
+print("Misspelled Word:", misspelled_word)
+print("Corrected Word: ", corrected_word)
+
+# List of misspelled words
+print("========================================================")
+misspelled_word_list = ['Incorrct', 'Mang', 'Summay', 'Watr', 'Appl']
+for word in misspelled_word_list:
+    correct_word = spell.correction(word)
+    print("Misspelled Word:", word)
+    print("Corrected Word: ", correct_word)
