@@ -1,0 +1,11 @@
+import re
+text="My Hello vaishali,How are you."
+match_reu=re.findall("Hello",text)
+print(match_reu)
+match1=re.search("Hello",text)
+print(match1.group())
+mat=re.match("Hello",text)
+if mat:
+  print("match is found at the beginnning.",mat.group())
+else :
+  print("match is not  found at the beginnning.")
