@@ -1,0 +1,23 @@
+EXP7 :- write a python program to demonstate basic nlp task with nltk
+
+!pip install nltk
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
+
+nltk.download('punkt')
+nltk.download('stopwords')
+
+text = "Apple is buying a startup in the U.K. for $1 billion."
+
+words = word_tokenize(text)
+print("Tokenized Words:", words)
+
+stop_words = set(stopwords.words('english'))
+filtered = [w for w in words if w.lower() not in stop_words]
+print("After Stopword Removal:", filtered)
+
+stemmer = PorterStemmer()
+stemmed = [stemmer.stem(w) for w in filtered]
+print("Stemmed Words:", stemmed)
